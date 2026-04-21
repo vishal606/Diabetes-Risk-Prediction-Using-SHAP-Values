@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bishal Paul — Data Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#4070f4;
+  --blue-light:#e8f0ff;
+  --dark:#1a1a2e;
+  --text:#333;
+  --text2:#666;
+  --text3:#999;
+  --bg:#f9f9f9;
+  --white:#fff;
+  --border:#e8e8e8;
+  --sidebar:280px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar);height:100vh;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:2rem 1.5rem;overflow-y:auto;z-index:200}
+.sidebar-avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#4070f4,#764af1);display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:700;color:#fff;margin-bottom:1rem;flex-shrink:0;border:3px solid var(--blue-light)}
+.sidebar-name{font-size:1.05rem;font-weight:700;color:var(--dark);text-align:center;margin-bottom:0.2rem}
+.sidebar-title{font-size:0.72rem;color:var(--blue);font-weight:600;text-align:center;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:1.2rem}
+.sidebar-divider{width:40px;height:2px;background:var(--blue);margin:0 auto 1.2rem;border-radius:2px}
+.sidebar-social{display:flex;gap:0.75rem;margin-bottom:1.5rem}
+.sidebar-social a{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:0.85rem;text-decoration:none;transition:background 0.2s,color 0.2s,border-color 0.2s}
+.sidebar-social a:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.sidebar-nav{width:100%;list-style:none;margin-top:auto}
+.sidebar-nav li{margin-bottom:0.25rem}
+.sidebar-nav a{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 1rem;border-radius:8px;font-size:0.82rem;font-weight:500;color:var(--text2);text-decoration:none;transition:all 0.2s}
+.sidebar-nav a:hover,.sidebar-nav a.active{background:var(--blue-light);color:var(--blue)}
+.sidebar-nav a svg{width:16px;height:16px;flex-shrink:0}
+main{margin-left:var(--sidebar);padding:2rem 2.5rem;max-width:900px}
+section{display:none;animation:fadeIn 0.4s ease}
+section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.section-title{font-size:1.5rem;font-weight:700;color:var(--dark);margin-bottom:0.25rem;position:relative;padding-bottom:0.6rem}
+.section-title::after{content:'';position:absolute;bottom:0;left:0;width:40px;height:3px;background:var(--blue);border-radius:2px}
+.section-sub{font-size:0.78rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2rem}
+#home-sec{padding-top:2rem}
+.home-hero{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;margin-bottom:3rem}
+.home-tag{font-size:0.75rem;font-weight:600;color:var(--blue);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem}
+.home-name{font-size:2.4rem;font-weight:700;color:var(--dark);line-height:1.1;margin-bottom:0.75rem}
+.home-name span{color:var(--blue)}
+.home-desc{font-size:0.88rem;color:var(--text2);line-height:1.7;margin-bottom:1.5rem}
+.home-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{padding:0.65rem 1.5rem;border-radius:8px;font-size:0.82rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#2855d8;transform:translateY(-1px)}
+.btn-outline{background:transparent;border:2px solid var(--blue);color:var(--blue)}
+.btn-outline:hover{background:var(--blue);color:#fff;transform:translateY(-1px)}
+.home-img-wrap{display:flex;align-items:center;justify-content:center}
+.home-img-circle{width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,#4070f4 0%,#764af1 100%);display:flex;align-items:center;justify-content:center;font-size:5rem;font-weight:800;color:rgba(255,255,255,0.25);letter-spacing:-4px;position:relative}
+.home-img-circle::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px dashed var(--blue);opacity:0.35}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.5rem}
+.stat-card{background:var(--white);border-radius:12px;padding:1.25rem;border:1px solid var(--border);text-align:center}
+.stat-num{font-size:2rem;font-weight:700;color:var(--blue);line-height:1}
+.stat-label{font-size:0.72rem;color:var(--text2);margin-top:0.35rem;text-transform:uppercase;letter-spacing:0.04em}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.info-item{font-size:0.82rem;color:var(--text2);display:flex;align-items:center;gap:0.5rem}
+.info-item strong{color:var(--text);font-weight:600}
+.info-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.skills-cat{margin-bottom:0.75rem;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--white)}
+.skills-cat-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;user-select:none}
+.skills-cat-left{display:flex;align-items:center;gap:0.75rem}
+.skills-cat-icon{width:38px;height:38px;border-radius:8px;background:var(--blue-light);display:flex;align-items:center;justify-content:center}
+.skills-cat-icon svg{width:18px;height:18px;color:var(--blue)}
+.skills-cat-name{font-size:0.92rem;font-weight:600;color:var(--dark)}
+.skills-cat-sub{font-size:0.72rem;color:var(--text3)}
+.skills-cat-chevron{width:20px;height:20px;color:var(--text3);transition:transform 0.3s;flex-shrink:0}
+.skills-cat.open .skills-cat-chevron{transform:rotate(180deg)}
+.skills-cat-body{display:none;padding:0 1.25rem 1.25rem}
+.skills-cat.open .skills-cat-body{display:block}
+.skill-row{margin-bottom:0.85rem}
+.skill-row:last-child{margin-bottom:0}
+.skill-info{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:0.3rem}
+.skill-name{font-weight:500;color:var(--text)}
+.skill-pct{color:var(--blue);font-weight:600}
+.skill-bar{height:6px;background:#eee;border-radius:10px;overflow:hidden}
+.skill-fill{height:100%;background:linear-gradient(90deg,#4070f4,#764af1);border-radius:10px;transition:width 1s ease}
+.qual-tabs{display:flex;gap:0.5rem;margin-bottom:2rem}
+.qual-tab{padding:0.55rem 1.4rem;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;border:2px solid var(--blue);color:var(--blue);background:transparent;transition:all 0.2s}
+.qual-tab.active{background:var(--blue);color:#fff}
+.qual-panel{display:none}
+.qual-panel.active{display:block}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--blue-light)}
+.tl-item{position:relative;margin-bottom:2rem}
+.tl-dot{position:absolute;left:-2rem;top:6px;width:14px;height:14px;border-radius:50%;background:var(--blue);border:3px solid var(--white);box-shadow:0 0 0 2px var(--blue)}
+.tl-period{font-size:0.72rem;color:var(--blue);font-weight:600;letter-spacing:0.05em;margin-bottom:0.2rem}
+.tl-title{font-size:0.95rem;font-weight:700;color:var(--dark);margin-bottom:0.1rem}
+.tl-place{font-size:0.8rem;color:var(--text2);margin-bottom:0.6rem}
+.tl-list{list-style:none;padding:0}
+.tl-list li{font-size:0.8rem;color:var(--text2);padding:0.2rem 0 0.2rem 1.1rem;position:relative;line-height:1.55}
+.tl-list li::before{content:'arrow';font-family:monospace;content:'→';position:absolute;left:0;color:var(--blue);font-size:0.72rem;top:0.25rem}
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.proj-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(64,112,244,0.12)}
+.proj-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:800;color:rgba(255,255,255,0.3);letter-spacing:-2px}
+.proj-img.c1{background:linear-gradient(135deg,#4070f4,#764af1)}
+.proj-img.c2{background:linear-gradient(135deg,#11998e,#38ef7d)}
+.proj-img.c3{background:linear-gradient(135deg,#f7971e,#ffd200)}
+.proj-img.c4{background:linear-gradient(135deg,#c94b4b,#4b134f)}
+.proj-body{padding:1rem 1.1rem}
+.proj-source{font-size:0.68rem;color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem}
+.proj-title{font-size:0.88rem;font-weight:700;color:var(--dark);margin-bottom:0.5rem;line-height:1.3}
+.proj-desc{font-size:0.76rem;color:var(--text2);line-height:1.6;margin-bottom:0.75rem}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.35rem}
+.proj-tag{font-size:0.65rem;padding:0.18rem 0.55rem;background:var(--blue-light);color:var(--blue);border-radius:4px;font-weight:500}
+.research-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.25rem;border-left:4px solid var(--blue)}
+.research-journal{font-size:0.72rem;color:var(--blue);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.3rem}
+.research-title{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:0.75rem}
+.research-abstract{font-size:0.8rem;color:var(--text2);line-height:1.65;margin-bottom:1rem}
+.certs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.cert-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.25rem 1rem;display:flex;flex-direction:column;transition:transform 0.2s}
+.cert-card:hover{transform:translateY(-3px)}
+.cert-logo-wrap{height:56px;display:flex;align-items:center;justify-content:center;margin-bottom:0.9rem}
+.cert-title{font-size:0.82rem;font-weight:700;color:var(--dark);margin-bottom:0.2rem;text-align:center}
+.cert-expiry{font-size:0.7rem;color:var(--text3);text-align:center;margin-bottom:0.6rem}
+.cert-badge{font-size:0.65rem;font-weight:600;padding:0.2rem 0.6rem;border-radius:20px;display:inline-block;margin:0 auto}
+.cert-badge.valid{background:#e6f7ee;color:#1a8d4a}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.contact-info-item{display:flex;align-items:flex-start;gap:0.9rem;margin-bottom:1.25rem}
+.contact-icon{width:42px;height:42px;border-radius:8px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-icon svg{width:18px;height:18px;color:var(--blue)}
+.contact-label{font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em}
+.contact-val{font-size:0.88rem;font-weight:600;color:var(--dark)}
+.contact-form{background:var(--white);border-radius:12px;padding:1.5rem;border:1px solid var(--border)}
+.form-row{margin-bottom:1rem}
+.form-row label{font-size:0.75rem;font-weight:600;color:var(--text2);display:block;margin-bottom:0.35rem;text-transform:uppercase;letter-spacing:0.05em}
+.form-row input,.form-row textarea{width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:0.83rem;color:var(--text);background:var(--bg);transition:border-color 0.2s;resize:none}
+.form-row input:focus,.form-row textarea:focus{outline:none;border-color:var(--blue)}
+.mobile-nav{display:none}
+@media(max-width:768px){
+  .sidebar{display:none}
+  main{margin-left:0;padding:1rem;padding-bottom:80px}
+  .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--white);border-top:1px solid var(--border);justify-content:space-around;padding:0.5rem 0}
+  .mobile-nav a{display:flex;flex-direction:column;align-items:center;gap:0.2rem;font-size:0.6rem;color:var(--text2);text-decoration:none;padding:0.4rem}
+  .mobile-nav a.active{color:var(--blue)}
+  .mobile-nav svg{width:18px;height:18px}
+  .home-hero{grid-template-columns:1fr}
+  .home-img-wrap{display:none}
+  .projects-grid,.certs-grid,.contact-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-avatar">BP</div>
+  <div class="sidebar-name">Bishal Paul</div>
+  <div class="sidebar-title">Data Scientist</div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-social">
+    <a href="https://linkedin.com/in/bishal-paul-6a442414a" target="_blank" title="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://github.com/vishal606" target="_blank" title="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+    </a>
+    <a href="mailto:paulvishal70@gmail.com" title="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </a>
+    <a href="https://vishal606.github.io/Portfolio" target="_blank" title="Portfolio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    </a>
+  </div>
+  <ul class="sidebar-nav">
+    <li><a href="#" class="active" data-sec="home-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a></li>
+    <li><a href="#" data-sec="about-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>About</a></li>
+    <li><a href="#" data-sec="skills-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Skills</a></li>
+    <li><a href="#" data-sec="qual-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Qualification</a></li>
+    <li><a href="#" data-sec="projects-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Portfolio</a></li>
+    <li><a href="#" data-sec="research-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Research</a></li>
+    <li><a href="#" data-sec="certs-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Certifications</a></li>
+    <li><a href="#" data-sec="contact-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact</a></li>
+  </ul>
+</aside>
+
+<main>
+  <!-- HOME -->
+  <section id="home-sec" class="active">
+    <div class="home-hero">
+      <div>
+        <div class="home-tag">Hi, I'm</div>
+        <h1 class="home-name">Bishal <span>Paul</span></h1>
+        <p class="home-desc">Data Scientist with expertise in machine learning, predictive modelling, and financial analytics. I build high-accuracy models using XGBoost, LSTM, and deep learning to turn complex data into business intelligence.</p>
+        <div class="home-btns">
+          <a href="#" class="btn btn-primary" data-sec="contact-sec">Contact Me &#8599;</a>
+          <a href="#" class="btn btn-outline" data-sec="projects-sec">My Projects</a>
+        </div>
+      </div>
+      <div class="home-img-wrap">
+        <div class="home-img-circle">BP</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" data-target="3">0</div><div class="stat-label">DS Projects Delivered</div></div>
+      <div class="stat-card"><div class="stat-num" data-target="1">0</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-card"><div class="stat-num" data-target="4">0</div><div class="stat-label">Certifications</div></div>
+    </div>
+    <div class="info-grid">
+      <div class="info-item"><span class="info-dot"></span><span><strong>Name:</strong> Bishal Paul</span></div>
+      <div class="info-item"><span class="info-dot"></span><span><strong>Email:</strong> paulvishal70@gmail.com</span></div>
+      <div class="info-item"><span class="info-dot"></span><span><strong>Role:</strong> Data Scientist</span></div>
+      <div class="info-item"><span class="info-dot"></span><span><strong>Location:</strong> Dhaka, Bangladesh</span></div>
+      <div class="info-item"><span class="info-dot"></span><span><strong>Degree:</strong> BSc CSE, AIUB</span></div>
+      <div class="info-item"><span class="info-dot"></span><span><strong>Phone:</strong> +880 1627 054728</span></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about-sec">
+    <div class="section-title">About Me</div>
+    <div class="section-sub">My Introduction</div>
+    <p style="font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:1.25rem">I'm a Data Scientist at <strong style="color:var(--dark)">Datavionix</strong> where I develop and deploy high-accuracy predictive models for financial and operational decision-making. With a BSc in Computer Science &amp; Engineering from AIUB, I specialize in end-to-end machine learning pipelines.</p>
+    <p style="font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:1.25rem">My research interests lie in <strong style="color:var(--dark)">ML-driven financial forecasting</strong>, risk management models, and AI in banking. I hold IELTS certification and am seeking graduate opportunities in Canada.</p>
+    <p style="font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:2rem">Outside of data science, I'm a member of the AIUB Photography Club and enjoy travelling — skills that sharpen my eye for patterns and detail.</p>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num">3+</div><div class="stat-label">ML Projects</div></div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Frameworks</div></div>
+      <div class="stat-card"><div class="stat-num">3.19</div><div class="stat-label">BSc CGPA</div></div>
+    </div>
+    <a href="Bishal_cv.pdf" class="btn btn-primary" download>Download Resume &#8595;</a>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills-sec">
+    <div class="section-title">Skills</div>
+    <div class="section-sub">My Technical Level</div>
+    <div class="skills-cat open">
+      <div class="skills-cat-header">
+        <div class="skills-cat-left">
+          <div class="skills-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div><div class="skills-cat-name">Programming &amp; Analytics</div><div class="skills-cat-sub">All About the Core</div></div>
+        </div>
+        <svg class="skills-cat-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="skills-cat-body">
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Python</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">SQL</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Java</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">C++</span><span class="skill-pct">65%</span></div><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+      </div>
+    </div>
+    <div class="skills-cat">
+      <div class="skills-cat-header">
+        <div class="skills-cat-left">
+          <div class="skills-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14"/></svg></div>
+          <div><div class="skills-cat-name">Machine Learning &amp; Deep Learning</div><div class="skills-cat-sub">Theory, theory!</div></div>
+        </div>
+        <svg class="skills-cat-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="skills-cat-body">
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">XGBoost / LightGBM</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">TensorFlow / Keras</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">LSTM / Deep Learning</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Scikit-learn</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+      </div>
+    </div>
+    <div class="skills-cat">
+      <div class="skills-cat-header">
+        <div class="skills-cat-left">
+          <div class="skills-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <div><div class="skills-cat-name">Databases &amp; Visualization</div><div class="skills-cat-sub">Wow! Factor</div></div>
+        </div>
+        <svg class="skills-cat-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="skills-cat-body">
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Power BI</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Tableau</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Matplotlib / Seaborn</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">MS Excel (Advanced)</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+      </div>
+    </div>
+    <div class="skills-cat">
+      <div class="skills-cat-header">
+        <div class="skills-cat-left">
+          <div class="skills-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+          <div><div class="skills-cat-name">Data Engineering &amp; Process</div><div class="skills-cat-sub">Pipelines &amp; EDA</div></div>
+        </div>
+        <svg class="skills-cat-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="skills-cat-body">
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Feature Engineering</span><span class="skill-pct">87%</span></div><div class="skill-bar"><div class="skill-fill" style="width:87%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">EDA &amp; Data Cleaning</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Financial Modelling</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+        <div class="skill-row"><div class="skill-info"><span class="skill-name">Risk Analysis</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALIFICATION -->
+  <section id="qual-sec">
+    <div class="section-title">Qualification</div>
+    <div class="section-sub">My Personal Journey</div>
+    <div class="qual-tabs">
+      <button class="qual-tab active" data-panel="edu-panel">Education</button>
+      <button class="qual-tab" data-panel="work-panel">Work</button>
+    </div>
+    <div id="edu-panel" class="qual-panel active">
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-period">2017 - 2023</div><div class="tl-title">BSc (Hons) Computer Science &amp; Engineering</div><div class="tl-place">American International University-Bangladesh (AIUB) &middot; CGPA: 3.19/4.00</div><ul class="tl-list"><li>Specialized in ML, data structures, OOP (Java), and algorithm design.</li><li>Served as Teaching Assistant for Object-Oriented Programming.</li></ul></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-period">2014 - 2017</div><div class="tl-title">Higher Secondary Certificate (HSC)</div><div class="tl-place">Moulvibazar Govt College &middot; GPA: 4.00/5.00</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-period">2006 - 2014</div><div class="tl-title">Secondary School Certificate (SSC)</div><div class="tl-place">Moulvibazar Govt High School &middot; GPA: 4.69/5.00</div></div>
+      </div>
+    </div>
+    <div id="work-panel" class="qual-panel">
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-period">Nov 2024 - Present</div><div class="tl-title">Data Scientist</div><div class="tl-place">Datavionix</div><ul class="tl-list"><li>Designed and deployed predictive models using XGBoost, LightGBM, and LSTM on financial datasets.</li><li>Performed end-to-end data pipelines: cleaning, feature engineering, and EDA.</li><li>Evaluated model reliability using ROC-AUC and Precision-Recall curves.</li><li>Produced stakeholder dashboards and reports in Power BI and Python.</li></ul></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-period">Jul 2024 - Oct 2024</div><div class="tl-title">Data Science Intern</div><div class="tl-place">Kryzotech</div><ul class="tl-list"><li>Built classification and regression ML models to improve business decision-making.</li><li>Conducted EDA to uncover trends and patterns in complex datasets.</li><li>Used Python, SQL, and Jupyter Notebook for data wrangling and visualization.</li></ul></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-period">Sep 2022 - Dec 2022</div><div class="tl-title">Teaching Assistant - OOP (Java)</div><div class="tl-place">American International University-Bangladesh (AIUB)</div><ul class="tl-list"><li>Assisted students with Object-Oriented Programming in Java.</li><li>Supported academic data collection and analysis tasks.</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects-sec">
+    <div class="section-title">Portfolio</div>
+    <div class="section-sub">My Projects</div>
+    <div class="projects-grid">
+      <div class="proj-card"><div class="proj-img c1">CR</div><div class="proj-body"><div class="proj-source">Datavionix &middot; 2024-2025</div><div class="proj-title">Credit Risk Prediction Model</div><p class="proj-desc">End-to-end credit risk classification pipeline on financial transaction data. Evaluated with ROC-AUC and Precision-Recall curves; delivered dashboards for stakeholders.</p><div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">XGBoost</span><span class="proj-tag">LightGBM</span><span class="proj-tag">scikit-learn</span><span class="proj-tag">pandas</span></div></div></div>
+      <div class="proj-card"><div class="proj-img c2">TS</div><div class="proj-body"><div class="proj-source">Datavionix &middot; 2024-2025</div><div class="proj-title">Time Series Forecasting with LSTM</div><p class="proj-desc">Deep learning forecasting system for sequential financial data with window-based sequence generation and tuned LSTM architecture for reduced forecasting error.</p><div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">LSTM</span><span class="proj-tag">TensorFlow</span><span class="proj-tag">Keras</span><span class="proj-tag">NumPy</span></div></div></div>
+      <div class="proj-card"><div class="proj-img c3">PA</div><div class="proj-body"><div class="proj-source">Kryzotech &middot; 2024</div><div class="proj-title">Predictive Analytics for Decision-Making</div><p class="proj-desc">Full ML pipeline from data collection through classification and regression modelling to business intelligence reporting and deep exploratory data analysis.</p><div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">SQL</span><span class="proj-tag">Jupyter</span><span class="proj-tag">scikit-learn</span></div></div></div>
+      <div class="proj-card"><div class="proj-img c4">BT</div><div class="proj-body"><div class="proj-source">Academic &middot; AIUB</div><div class="proj-title">Brain Tumor Segmentation - MASK-RCNN</div><p class="proj-desc">Computer vision project using Mask R-CNN for instance segmentation of brain tumors in MRI scans demonstrating deep learning expertise beyond tabular data.</p><div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Mask R-CNN</span><span class="proj-tag">TensorFlow</span><span class="proj-tag">OpenCV</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research-sec">
+    <div class="section-title">Research Interests</div>
+    <div class="section-sub">Focus Areas</div>
+    <div class="research-card"><div class="research-journal">Research Area 01</div><div class="research-title">Machine Learning in Financial Forecasting</div><p class="research-abstract">Developing robust predictive models for financial time series, credit risk assessment, and market pattern recognition. Key focus on gradient boosting ensembles (XGBoost, LightGBM) and sequence models (LSTM) applied to structured financial datasets. Interested in model interpretability using Shapley values and reliability metrics including ROC-AUC and Precision-Recall analysis.</p><div class="proj-tags" style="margin-top:0.5rem"><span class="proj-tag">XGBoost</span><span class="proj-tag">LSTM</span><span class="proj-tag">Time Series</span><span class="proj-tag">Credit Risk</span></div></div>
+    <div class="research-card"><div class="research-journal">Research Area 02</div><div class="research-title">AI &amp; Big Data Analytics in Banking</div><p class="research-abstract">Applying artificial intelligence and large-scale data analytics to automate risk assessment, fraud detection, and regulatory compliance in banking environments. Interest in RegTech, settlement automation, and real-time analytical pipelines that support evidence-based decision-making at enterprise scale.</p><div class="proj-tags" style="margin-top:0.5rem"><span class="proj-tag">RegTech</span><span class="proj-tag">Fraud Detection</span><span class="proj-tag">Big Data</span><span class="proj-tag">Risk Modelling</span></div></div>
+    <div class="research-card"><div class="research-journal">Research Area 03</div><div class="research-title">Deep Learning for Sequential &amp; Structured Data</div><p class="research-abstract">Exploring LSTM, Transformer, and hybrid architectures for sequential modelling problems including time series forecasting, anomaly detection, and NLP applied to financial documents. Current interest in attention mechanisms and their application to temporal financial data.</p><div class="proj-tags" style="margin-top:0.5rem"><span class="proj-tag">LSTM</span><span class="proj-tag">Transformers</span><span class="proj-tag">Anomaly Detection</span><span class="proj-tag">NLP</span></div></div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certs-sec">
+    <div class="section-title">Certifications</div>
+    <div class="section-sub">Credentials &amp; Courses</div>
+    <div class="certs-grid">
+      <div class="cert-card"><div class="cert-logo-wrap"><div style="font-size:1.1rem;font-weight:800;color:#1ba0d7">&#11042; CISCO</div></div><div class="cert-title">Cisco Networking Academy</div><div class="cert-expiry">Networking Fundamentals</div><span class="cert-badge valid">Does not expire</span></div>
+      <div class="cert-card"><div class="cert-logo-wrap"><div style="font-size:1.1rem;font-weight:800;color:#1e8bc3">KTech</div></div><div class="cert-title">Data Science Certificate</div><div class="cert-expiry">Kryzotech</div><span class="cert-badge valid">Does not expire</span></div>
+      <div class="cert-card"><div class="cert-logo-wrap"><div style="font-size:1.4rem;font-weight:800;color:#c41230;letter-spacing:3px">IELTS</div></div><div class="cert-title">IELTS</div><div class="cert-expiry">English Language Proficiency</div><span class="cert-badge valid">International</span></div>
+      <div class="cert-card"><div class="cert-logo-wrap"><div style="font-size:0.9rem;font-weight:700;color:#555;text-align:center">ENVOY<br>English</div></div><div class="cert-title">ENVOY English Language Test</div><div class="cert-expiry">Language Proficiency</div><span class="cert-badge valid">Does not expire</span></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact-sec">
+    <div class="section-title">Contact Me</div>
+    <div class="section-sub">Get in Touch</div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.19 11.9 19.79 19.79 0 0 1 1.12 3.23 2 2 0 0 1 3.1 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg></div><div><div class="contact-label">Phone</div><div class="contact-val">+880 1627 054728</div></div></div>
+        <div class="contact-info-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="contact-label">Email</div><div class="contact-val">paulvishal70@gmail.com</div></div></div>
+        <div class="contact-info-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="contact-label">Location</div><div class="contact-val">Dhaka, Bangladesh</div></div></div>
+        <div class="contact-info-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="contact-label">Portfolio</div><div class="contact-val">vishal606.github.io/Portfolio</div></div></div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row"><label>Name</label><input type="text" placeholder="Your full name"></div>
+        <div class="form-row"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-row"><label>Subject</label><input type="text" placeholder="What is this regarding?"></div>
+        <div class="form-row"><label>Message</label><textarea rows="4" placeholder="Your message..."></textarea></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="alert('Thanks! Please email directly at paulvishal70@gmail.com')">Send Message &#8599;</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="mobile-nav">
+  <a href="#" class="active" data-sec="home-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Home</a>
+  <a href="#" data-sec="skills-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Skills</a>
+  <a href="#" data-sec="projects-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Portfolio</a>
+  <a href="#" data-sec="research-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Research</a>
+  <a href="#" data-sec="contact-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact</a>
+</nav>
+
+<script>
+function switchSection(secId){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('[data-sec]').forEach(a=>a.classList.remove('active'));
+  const sec=document.getElementById(secId);
+  if(sec){sec.classList.add('active');}
+  document.querySelectorAll('[data-sec="'+secId+'"]').forEach(a=>a.classList.add('active'));
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-sec]').forEach(link=>{
+  link.addEventListener('click',e=>{e.preventDefault();switchSection(link.dataset.sec);});
+});
+document.querySelectorAll('.skills-cat-header').forEach(header=>{
+  header.addEventListener('click',()=>{
+    const cat=header.parentElement;
+    const wasOpen=cat.classList.contains('open');
+    document.querySelectorAll('.skills-cat').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen)cat.classList.add('open');
+  });
+});
+document.querySelectorAll('.qual-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.qual-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.qual-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.panel).classList.add('active');
+  });
+});
+function animateCounters(){
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    let current=0;const inc=target/40;
+    const timer=setInterval(()=>{
+      current+=inc;if(current>=target){current=target;clearInterval(timer);}
+      el.textContent=Math.floor(current);
+    },30);
+  });
+}
+animateCounters();
+</script>
+</body>
+</html>
